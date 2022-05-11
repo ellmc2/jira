@@ -1,46 +1,129 @@
-# Getting Started with Create React App
+# JIRA
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+技术栈：React、TypeScript、React Query、React Router、Redux Toolkit、CSS in JS 等
 
-## Available Scripts
+项目功能：
 
-In the project directory, you can run:
+- JWT 登陆注册
+- 项目列表、详情、编辑、删除
+- 任务列表/排序
+- 看板列表/排序等
 
-### `npm start`
+项目演示地址（待添加）
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+技术概念：乐观更新
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 0 初始化项目
 
-### `npm test`
+```bash
+npx create-react-app jira --template typescript
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```markdown
+# 项目目录结构
 
-### `npm run build`
+.
+├── README.md
+├── node_modules
+├── package-lock.json # 锁定版本号
+├── package.json # 前段项目的入口文件
+├── public # 不参与打包
+│   ├── favicon.ico
+│   ├── index.html # src 文件夹下的文件打包后，给 index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json # PWA，配置 pwa 的加载情况
+│   └── robots.txt # 配置搜素引擎爬虫如何处理本项目
+├── src # 参与打包
+│   ├── App.css
+│   ├── App.test.tsx
+│   ├── App.tsx # 项目 APP 本身
+│   ├── index.css
+│   ├── index.tsx # 项目入口文件，一般会做一些准备工作
+│   ├── logo.svg
+│   ├── react-app-env.d.ts # 引入预先定义好的 typescript 类型
+│   ├── reportWebVitals.ts # 埋点上报
+│   └── setupTests.ts # 配置单元测试
+└── tsconfig.json # 配置 TS
+└── .gitignore # git 版本忽略文件
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 0.1 解决项目中写绝对路径时 TS 报错问题
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+TS2307: Cannot find module 'filename' or its corresponding type declarations.
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```md
+# 在 tsconfig.json 中添加编译配置"baseUrl"
 
-### `npm run eject`
+{
+"compilerOptions": {
+"baseUrl": "./src"
+}
+}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 0.2 [统一代码格式化风格](https://www.prettier.cn/docs/install.html)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+# 安装prettier
+npm install --save-dev --save-exact prettier
+# 添加配置文件
+echo {}> .prettierrc.json
+# 添加.prettierignore文件
+touch .prettierignore
+# 并添加内容
+# Ignore artifacts:
+build
+coverage
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 0.3 [提交前自动格式化](https://www.prettier.cn/docs/precommit.html)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+npx mrm@2 lint-staged
+# 更新package.json中 lint-staged字段
+"lint-staged": {
+  "*.{js,css,md,ts,tsx}": "prettier --write"
+}
+```
 
-## Learn More
+### 0.4 [解决 eslint 与 prettier 的冲突](https://www.prettier.cn/docs/integrating-with-linters.html)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm install --save-dev eslint-config-prettier
+# 并更新package.json中的eslintConfig中的extends
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 0.5 [规范提交时 commit msg](https://github.com/conventional-changelog/commitlint#getting-started)
+
+```bash
+npm install --save-dev @commitlint/{config-conventional,cli}
+# 添加配置文件
+echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
+# 添加hook
+cat <<EEE > .husky/commit-msg
+#!/bin/sh
+. "\$(dirname "\$0")/_/husky.sh"
+
+npx --no -- commitlint --edit "\${1}"
+EEE
+# 确保hook可以被执行
+chmod a+x .husky/commit-msg
+
+# commit type enum
+[
+  'build',
+  'chore',
+  'ci',
+  'docs',
+  'feat',
+  'fix',
+  'perf',
+  'refactor',
+  'revert',
+  'style',
+  'test'
+];
+```
