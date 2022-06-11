@@ -127,3 +127,43 @@ chmod a+x .husky/commit-msg
   'test'
 ];
 ```
+
+### 0.6 Mock 方案
+
+REST API： URI 代表 资源/对象 ，METHOD 代表行为
+
+- GET /tickets // 列表
+- GET /tickets/12 // 详情
+- POST /tickets // 增加
+- PUT /tickets/12 // 替换
+- PATCH /tickets/12 // 修改
+- DELETE /tickets/12 // 删除
+
+#### 0.6.1 MOCK 方案之[JSON Server](https://github.com/typicode/json-server#getting-started)
+
+```bash
+# 安装json server
+npm install -g json-server
+# 创建db.json文件
+touch db.json
+
+# 启动json-server
+json-server --watch db.json
+
+# 若post请求只能添加id，name添加不进去啊，进入db文件里面只有一个id。修改POSTMAN中Body中content-type设置成application/json
+
+# 在项目中添加json-server
+npm install --save-dev json-server
+# 在项目中新建文件夹__json_server_mock__
+# __两个下划线表示查看代码的人，该文件夹与该项目关联不大，只是一个辅助的存在
+mkdir __json_server_mock__
+cd __json_server_mock__
+touch db.json
+
+# 在package.json中添加脚本
+"json-server": "json-server __json_server_mock__/db.json --watch"
+```
+
+注 1：encodeURI 用于转义整个 URI 的，encodeURIComponent 用于转义 URI 的一部分。
+
+注 2: screens 文件夹为整个页面的代码
