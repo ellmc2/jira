@@ -180,3 +180,9 @@ touch db.json
 ```bash
 yarn add qs
 ```
+
+### 0.8 使用 customHook 提取组件业务逻辑，复用组件代码
+
+注 1：使用 customHook 时一定要以 `use` 开头，这样 `eslint` 才会知道书写的函数为一个 hook。
+
+注 2：无论是 React 自带的 hook 还是 customHook 都是不可以在普通函数中运行的， 它只能在其他 hook 中运行或者组件中运行

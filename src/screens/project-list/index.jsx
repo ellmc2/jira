@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import qs from "qs";
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
-import { clearObject } from "../../utils";
+import { clearObject, useDebounce, useMount } from "../../utils";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -19,23 +19,25 @@ export const ProjectListScreen = () => {
   // 用于存放用户列表
   const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    fetch(`${apiUrl}/projects?${qs.stringify(clearObject(params))}`).then(
-      async (res) => {
-        if (res.ok) {
-          setList(await res.json());
-        }
-      }
-    );
-  }, [params]);
+  const useDebouncedParams = useDebounce(params, 2000);
 
   useEffect(() => {
+    fetch(
+      `${apiUrl}/projects?${qs.stringify(clearObject(useDebouncedParams))}`
+    ).then(async (res) => {
+      if (res.ok) {
+        setList(await res.json());
+      }
+    });
+  }, [useDebouncedParams]);
+
+  useMount(() => {
     fetch(`${apiUrl}/users`).then(async (res) => {
       if (res.ok) {
         setUsers(await res.json());
       }
     });
-  }, []);
+  });
 
   return (
     <div>
