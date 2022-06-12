@@ -166,4 +166,17 @@ touch db.json
 
 注 1：encodeURI 用于转义整个 URI 的，encodeURIComponent 用于转义 URI 的一部分。
 
-注 2: screens 文件夹为整个页面的代码
+注 2：screens 文件夹为整个页面的代码
+
+注 3：
+
+```bash
+# 当执行 npm run start 时， process.env.paramName 值为 .env.development 文件中 paramName 变量值
+# 当执行 npm run build 时，process.env.paramName 值为 .env 文件中 paramName 变量值
+```
+
+### 0.7 安装 `qs`
+
+```bash
+yarn add qs
+```

@@ -1,9 +1,4 @@
-import { useState } from "react";
-
-export const SearchPanel = ({ params, setParams }) => {
-  // 用于存放选中的用户
-  const [users, setUsers] = useState([]);
-
+export const SearchPanel = ({ users, params, setParams }) => {
   return (
     <form>
       <div>
@@ -23,7 +18,9 @@ export const SearchPanel = ({ params, setParams }) => {
         >
           <option value={""}>负责人</option>
           {users.map((user) => (
-            <option value={user.id}>{user.name} </option>
+            <option value={user.id} key={user.id}>
+              {user.name}
+            </option>
           ))}
         </select>
       </div>
