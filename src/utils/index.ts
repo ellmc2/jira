@@ -5,17 +5,19 @@ import { useEffect, useState } from "react";
  * @param value
  * @return {*}
  */
-export const isFalsy = (value) => (value === 0 ? false : !value);
+export const isFalsy = (value: any) => (value === 0 ? false : !value);
 
 /**
  * @description: 将传入的对象值为falsey的去掉，并返回新的对象
- * @param undefined
  * @return {*}
+ * @param obj
  */
-export const clearObject = (obj) => {
+export const clearObject = (obj: object) => {
   const result = { ...obj };
   Object.keys(result).forEach((key) => {
+    // @ts-ignore
     if (isFalsy(result[key])) {
+      // @ts-ignore
       delete result[key];
     }
   });
@@ -27,7 +29,7 @@ export const clearObject = (obj) => {
  * @param callback
  * @return {*}
  */
-export const useMount = (callback) => {
+export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,7 +42,7 @@ export const useMount = (callback) => {
  * @param delay 延迟
  * @return {*}
  */
-export const useDebounce = (value, delay) => {
+export const useDebounce = (value: any, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedValue(value), delay);
