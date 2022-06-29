@@ -39,12 +39,11 @@ export const useMount = (callback: () => void) => {
 
 /**
  * @description: customHook debouncedValue 防抖的value
- * TODO: 后面用泛型规范返回值的类型
  * @param value 需要防抖的value
  * @param delay 延迟
  * @return {*}
  */
-export const useDebounce = (value: unknown, delay?: number): any => {
+export const useDebounce = <V>(value: V, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedValue(value), delay);
