@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 
 /**
- * @description: 判断传入的值是否为falsy，兼容值为 0 的情况，为 0 时视为 非falsy。
- * @param value
- * @return {*}
+ * @description:判断传入的值是否为falsy，兼容值为 0 的情况，为 0 时视为 非falsy。
+ * @param {unknown} value
+ * @return {boolean}
  */
-export const isFalsy = (value: any) => (value === 0 ? false : !value);
+export const isFalsy = (value: unknown): boolean =>
+  value === 0 ? false : !value;
 
 /**
  * @description: 将传入的对象值为falsey的去掉，并返回新的对象
@@ -38,11 +39,12 @@ export const useMount = (callback: () => void) => {
 
 /**
  * @description: customHook debouncedValue 防抖的value
+ * TODO: 后面用泛型规范返回值的类型
  * @param value 需要防抖的value
  * @param delay 延迟
  * @return {*}
  */
-export const useDebounce = (value: any, delay?: number) => {
+export const useDebounce = (value: unknown, delay?: number): any => {
   const [debouncedValue, setDebouncedValue] = useState(value);
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedValue(value), delay);

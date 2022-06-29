@@ -192,3 +192,15 @@ yarn add qs
 > 使用 `JS ` 时，大部分错误都在 runtime(运行时)才能被发现。
 >
 > 我们希望，在静态代码中就能发现其中的一些错误，强类型。
+
+```typescript
+// never 类型
+const fn: () => never = () => throw new Error();
+```
+
+> js 文件 + .d.ts 文件 === ts 文件
+
+```tsx
+// unknown 类型
+unknown 类型的值不能赋值给任何其他类型的值
+```
