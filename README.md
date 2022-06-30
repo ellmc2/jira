@@ -204,3 +204,22 @@ const fn: () => never = () => throw new Error();
 // unknown 类型
 unknown 类型的值不能赋值给任何其他类型的值
 ```
+
+> TS 是鸭子类型(duck typing)：面向接口编程，而不是面向对象编程。
+
+```markdown
+// vs code 快捷键
+快速删除一行 command + shift + k
+
+移动当前行向上/下 option + ⬆️/⬇️
+当前行向上/下复制一行 option + shift + ⬆️/⬇️
+
+# 光标操作
+
+跳转行头 fn + ←
+跳转行尾 fn + ➡
+
+向上新增一行，并跳转上一行 command + shift + enter
+```
+
+通过 json-server 中间件，实现对于非 restful api 支持。
