@@ -223,3 +223,9 @@ unknown 类型的值不能赋值给任何其他类型的值
 ```
 
 通过 json-server 中间件，实现对于非 restful api 支持。
+
+### 0.10 安装 `npx imooc-jira-tool`
+
+```bash
+npx imooc-jira-tool
+```
