@@ -229,3 +229,10 @@ unknown 类型的值不能赋值给任何其他类型的值
 ```bash
 npx imooc-jira-tool
 ```
+
+```tsx
+const login = (form: AuthForm) =>
+  auth.login(form).then((user) => setUser(user));
+// 可以简写成下面👇这种形式
+const login = (form: AuthForm) => auth.login(form).then(setUser);
+```
