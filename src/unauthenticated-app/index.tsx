@@ -69,6 +69,6 @@ const Title = styled.h2`
   color: rgba(94, 108, 132);
 `;
 
-export const LongBtn = styled(Button)`
+export const LongButton = styled(Button)`
   width: 100%;
 `;
