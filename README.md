@@ -388,3 +388,12 @@ type Pick<T, K extends keyof T> = {
  */
 type Exclude<T, U> = T extends U ? never : T;
 ```
+
+### 0.13 [安装 antd](https://ant.design/docs/react/use-with-create-react-app-cn)
+
+```bash
+yarn add antd
+# 自定义antd 主题颜色
+yarn add @craco/craco
+yarn add craco-less
+```
