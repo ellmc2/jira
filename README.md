@@ -292,3 +292,99 @@ export const useHttp = () => {
 ```
 
 > 当一个对象参数有默认值时，它的属性就变默认变成可选的。
+
+```markdown
+# 联合类型 (或的意思)
+
+let myFavouriteNumber = string | number;
+let jackFavouriteNumber = string | number;
+
+# 类型别名 type
+
+type FavouriteNumber = string | number;
+let roseFavouriteNumber: Favourite;
+
+# 接口 interface
+
+interface Person {
+name: string;
+}
+
+## 类型别名 type 和接口 interface 在很多情况下可以互换。
+
+// type Person = {
+// name: stirng;
+// }
+const xiaoMing: Person = { name: "xiaoming" }
+
+## 类型别名 type 和接口 interface 的区别
+
+1.联合类型、交叉类型可以由类型别名 type 定义，接口 interface 不行。
+2.interface 也没法实现 utility type
+```
+
+```typescript
+type Parameters<T extends (...args: any) => any> = T extends (
+  ...args: infer P
+) => any
+  ? P
+  : never;
+```
+
+> JS 中的 typeof 是在 runtime 时运行的，而 ts 中的 typeof 是在静态环境运行的。
+
+> Utility type 的用法：用泛型给它传入一个其他类型，然后 utility type 对这个函数进行某种操作。
+
+### 0.11 Partial 将类型的所有属性变成可选
+
+```typescript
+type Person = {
+  name: string;
+  age: number;
+  sex: string;
+}
+
+const xiaoMing: Partial<Person> ={}
+
+// Omit删除泛型对象的指定属性后的类型。
+const shenMiRen: Omit<Person, 'name' ｜ 'age'> ={
+  sex:'男'
+}
+
+```
+
+```typescript
+// Partical 的实现
+/**
+ * Make all properties in T optional
+ */
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+};
+
+keyof Person = 'name' | 'age' | 'sex';
+```
+
+### 0.12 Omit 从类型中删除指定的属性
+
+```typescript
+// Omit 的实现
+/**
+ * Construct a type with the properties of T except for those in type K.
+ */
+type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+
+// Pick 的实现
+/**
+ * From T, pick a set of properties whose keys are in the union K
+ */
+type Pick<T, K extends keyof T> = {
+  [P in K]: T[P];
+};
+
+// Exclude 的实现
+/**
+ * Exclude from T those types that are assignable to U
+ */
+type Exclude<T, U> = T extends U ? never : T;
+```

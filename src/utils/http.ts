@@ -47,7 +47,7 @@ export const http = async (
 // 一个函数如果想要使用其他hook的话，它本身就需要是一个hook。
 export const useHttp = () => {
   const { user } = useAuth();
-  // TODO: Parameters操作符理解
+  // TODO: Parameters Utility type 理解
   return (...[endpoint, config]: Parameters<typeof http>) =>
     http(endpoint, { ...config, token: user?.token });
 };
