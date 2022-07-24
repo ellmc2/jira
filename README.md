@@ -397,3 +397,9 @@ yarn add antd
 yarn add @craco/craco
 yarn add craco-less
 ```
+
+### 0.14 安装 emotion
+
+```bash
+yarn add @emotion/react @emotion/styled
+```
