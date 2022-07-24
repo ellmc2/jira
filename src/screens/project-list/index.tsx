@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import * as qs from "qs";
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
 import { clearObject, useDebounce, useMount } from "../../utils";
-
-const apiUrl = process.env.REACT_APP_API_URL;
+import { useHttp } from "../../utils/http";
 
 export const ProjectListScreen = () => {
   // 用于存放input输入框输入的用户名以及用户id
@@ -21,22 +19,18 @@ export const ProjectListScreen = () => {
 
   const useDebouncedParams = useDebounce(params, 2000);
 
+  const client = useHttp();
+
   useEffect(() => {
-    fetch(
-      `${apiUrl}/projects?${qs.stringify(clearObject(useDebouncedParams))}`
-    ).then(async (res) => {
-      if (res.ok) {
-        setList(await res.json());
-      }
-    });
+    client("projects", {
+      data: clearObject(useDebouncedParams),
+    }).then(setList);
   }, [useDebouncedParams]);
 
   useMount(() => {
-    fetch(`${apiUrl}/users`).then(async (res) => {
-      if (res.ok) {
-        setUsers(await res.json());
-      }
-    });
+    client("users", {
+      data: clearObject(useDebouncedParams),
+    }).then(setUsers);
   });
 
   return (

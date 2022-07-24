@@ -236,3 +236,59 @@ const login = (form: AuthForm) =>
 // 可以简写成下面👇这种形式
 const login = (form: AuthForm) => auth.login(form).then(setUser);
 ```
+
+> 当服务端返回 401/500 时，fetch api 并不会抛出异常。即服务端抛出任何异常，fetch api 都不会抛出异常。fetch api 只会在断网、网络连接失败的时候才会抛出异常。
+
+> axios 会对服务端返回的 400/500 错误抛出异常。
+
+```ts
+export const http = async (
+  endpoint: string,
+  { data, token, headers, ...customConfig }: Config
+) => {
+  const config = {
+    method: "GET",
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+      "Content-Type": data ? "application/json" : "",
+    },
+    ...customConfig,
+  };
+  if (config.method.toLowerCase() === "GET") {
+    endpoint += qs.stringify(data);
+  } else {
+    config.body = JSON.stringify(data || {});
+  }
+  return window
+    .fetch(`${apiUrl}/${endpoint}`, config)
+    .then(async (response) => {
+      if (response.status === 401) {
+        await auth.logout();
+        window.location.reload();
+        return Promise.reject({ message: "请重新登陆" });
+      }
+      const data = await response.json();
+      if (response.ok) {
+        return data;
+      } else {
+        return Promise.reject(data);
+      }
+    });
+};
+
+// 一个函数如果想要使用其他hook的话，它本身就需要是一个hook。
+export const useHttp = () => {
+  const { user } = useAuth();
+  return ([endpoint, config]: [string, Config]) =>
+    http(endpoint, { ...config, token: user?.token });
+};
+
+// 可以看到 useHttp 和 http 返回的函数的传参其实是一致的。所以传参可以写成下面👇这种形式。
+export const useHttp = () => {
+  const { user } = useAuth();
+  return ([endpoint, config]: Parameters<typeof http>) =>
+    http(endpoint, { ...config, token: user?.token });
+};
+```
+
+> 当一个对象参数有默认值时，它的属性就变默认变成可选的。
