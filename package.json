@@ -36,8 +36,8 @@
       "react-app/jest",
       "prettier"
     ],
-    "rules":{
-      "jsx-a11y/anchor-is-valid":"off"
+    "rules": {
+      "jsx-a11y/anchor-is-valid": "off"
     }
   },
   "browserslist": {

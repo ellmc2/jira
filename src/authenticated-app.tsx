@@ -26,7 +26,6 @@ export const AuthenticatedApp = () => {
 
 const PageHeader = styled(Row)`
   height: 6rem;
-  background-color: gray;
   flex-direction: row;
   justify-content: space-between;
 `;
