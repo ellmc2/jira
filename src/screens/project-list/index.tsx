@@ -3,6 +3,7 @@ import { SearchPanel } from "./search-panel";
 import { List } from "./list";
 import { clearObject, useDebounce, useMount } from "../../utils";
 import { useHttp } from "../../utils/http";
+import styled from "@emotion/styled";
 
 export const ProjectListScreen = () => {
   // 用于存放input输入框输入的用户名以及用户id
@@ -34,9 +35,14 @@ export const ProjectListScreen = () => {
   });
 
   return (
-    <div>
+    <Container>
+      <h1>项目列表</h1>
       <SearchPanel params={params} setParams={setParams} users={users} />
       <List list={list} users={users} />
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  padding: 3.2rem;
+`;
