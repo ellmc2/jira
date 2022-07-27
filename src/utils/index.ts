@@ -9,16 +9,22 @@ export const isFalsy = (value: unknown): boolean =>
   value === 0 ? false : !value;
 
 /**
+ * @description: 判断是否是有意义的参数 (isFalsy函数传入false时会被认为是false)
+ * @param {unknown} value
+ * @return {*}
+ */
+export const isVoid = (value: unknown): boolean =>
+  value == null || value === "";
+
+/**
  * @description: 将传入的对象值为falsey的去掉，并返回新的对象
  * @return {*}
  * @param obj
  */
-export const clearObject = (obj: object) => {
+export const cleanObject = (obj: { [key: string]: unknown }) => {
   const result = { ...obj };
   Object.keys(result).forEach((key) => {
-    // @ts-ignore
-    if (isFalsy(result[key])) {
-      // @ts-ignore
+    if (isVoid(result[key])) {
       delete result[key];
     }
   });
@@ -34,6 +40,7 @@ export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // TODO:依赖项里加入callback会造成无限循环，这和 useCallback 和 useMemo 有关系
   }, []);
 };
 

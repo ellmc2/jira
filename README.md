@@ -407,3 +407,10 @@ yarn add @emotion/react @emotion/styled
 #### 0.14.1 `emotion`在`React@17+`适配问题修复
 
 [参考](https://blogwxb.cn/emotion%E4%B8%ADReact%E7%9A%84typeScript%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/)
+
+```typescript
+// 限制入参必须是键值对
+export const clearObject = (obj: { key: string; value: unknown }) => {
+  // ...
+};
+```

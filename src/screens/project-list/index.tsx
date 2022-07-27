@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
-import { clearObject, useDebounce, useMount } from "../../utils";
+import { cleanObject, useDebounce, useMount } from "../../utils";
 import { useHttp } from "../../utils/http";
 import styled from "@emotion/styled";
 
@@ -24,13 +24,13 @@ export const ProjectListScreen = () => {
 
   useEffect(() => {
     client("projects", {
-      data: clearObject(useDebouncedParams),
+      data: cleanObject(useDebouncedParams),
     }).then(setList);
   }, [useDebouncedParams]);
 
   useMount(() => {
     client("users", {
-      data: clearObject(useDebouncedParams),
+      data: cleanObject(useDebouncedParams),
     }).then(setUsers);
   });
 
