@@ -1,8 +1,8 @@
-import { ProjectListScreen } from "./screens/project-list";
-import { useAuth } from "./context/auth-context";
+import { ProjectListScreen } from "screens/project-list";
+import { useAuth } from "context/auth-context";
 import styled from "@emotion/styled";
-import { Row } from "./components/lib";
-import { ReactComponent as SoftwareLogo } from "./assets/software-logo.svg";
+import { Row } from "components/lib";
+import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Dropdown, Menu } from "antd";
 
 export const AuthenticatedApp = () => {

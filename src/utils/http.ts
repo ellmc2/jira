@@ -1,6 +1,6 @@
 import qs from "qs";
-import * as auth from "../auth-provider";
-import { useAuth } from "../context/auth-context";
+import * as auth from "auth-provider";
+import { useAuth } from "context/auth-context";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -23,7 +23,7 @@ export const http = async (
     ...customConfig,
   };
   if (config.method.toUpperCase() === "GET") {
-    endpoint += qs.stringify(data);
+    endpoint += `?${qs.stringify(data)}`;
   } else {
     config.body = JSON.stringify(data || {});
   }
@@ -48,6 +48,8 @@ export const http = async (
 export const useHttp = () => {
   const { user } = useAuth();
   // TODO: Parameters Utility type 理解
-  return (...[endpoint, config]: Parameters<typeof http>) =>
-    http(endpoint, { ...config, token: user?.token });
+  return (...[endpoint, config]: Parameters<typeof http>) => {
+    console.log("111", endpoint, config);
+    return http(endpoint, { ...config, token: user?.token });
+  };
 };

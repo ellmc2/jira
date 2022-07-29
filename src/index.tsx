@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import App from "App";
+import reportWebVitals from "reportWebVitals";
 import { loadServer, DevTools } from "jira-dev-tool";
 // 务必在 jira-dev-tool后引入antd.less
 import "antd/dist/antd.less";

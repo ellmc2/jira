@@ -1,11 +1,9 @@
+// https://www.typescriptlang.org/zh/tsconfig
 {
   "compilerOptions": {
+    "baseUrl": "./src", // 解析非绝对路径模块名时的基准目录
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -20,7 +18,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
