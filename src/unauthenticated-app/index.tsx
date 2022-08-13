@@ -7,16 +7,15 @@ import logo from "../assets/logo.svg";
 import left from "../assets/left.svg";
 import right from "../assets/right.svg";
 import { Helmet } from "react-helmet";
+import { useDocumentTitle } from "utils";
 
 export const UnauthenticatedApp = () => {
   const [hasAccount, setHasAccount] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  useDocumentTitle("请登陆或注册以继续");
 
   return (
     <Container>
-      <Helmet>
-        <title>请登陆或注册以继续</title>
-      </Helmet>
       <Header />
       <Background />
       <ShadowCard>
