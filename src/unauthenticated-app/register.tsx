@@ -1,11 +1,33 @@
 import { useAuth } from "../context/auth-context";
 import { Form, Input } from "antd";
 import { LongButton } from "./index";
+import { useAsync } from "utils/use-async";
 
-export const RegisterScreen = () => {
+export const RegisterScreen = ({
+  onError,
+}: {
+  onError: (error: Error) => void;
+}) => {
   const { register } = useAuth();
-  const handleSubmit = (values: { username: string; password: string }) => {
-    register(values);
+  const { run, isLoading } = useAsync(undefined, { throwOnError: true });
+
+  const handleSubmit = async ({
+    cpassword,
+    ...values
+  }: {
+    cpassword: string;
+    username: string;
+    password: string;
+  }) => {
+    if (cpassword !== values.password) {
+      onError(new Error("请确认两次输入的密码相同"));
+      return;
+    }
+    try {
+      await run(register(values));
+    } catch (e: any) {
+      onError(e);
+    }
   };
 
   return (
@@ -22,8 +44,14 @@ export const RegisterScreen = () => {
       >
         <Input placeholder={"密码"} type="password" id={"password"} />
       </Form.Item>
+      <Form.Item
+        name={"cpassword"}
+        rules={[{ required: true, message: "请确认密码" }]}
+      >
+        <Input placeholder={"确认密码"} type="password" id={"cpassword"} />
+      </Form.Item>
       <Form.Item>
-        <LongButton type="primary" htmlType={"submit"}>
+        <LongButton type="primary" htmlType={"submit"} loading={isLoading}>
           注册
         </LongButton>
       </Form.Item>
