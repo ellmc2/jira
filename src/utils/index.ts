@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * @description:判断传入的值是否为falsy，兼容值为 0 的情况，为 0 时视为 非falsy。
@@ -78,7 +78,7 @@ export const useDocumentTitle = (
   title: string,
   keepOnUnmount: boolean = true
 ) => {
-  const oldTitle = document.title;
+  const oldTitle = useRef(document.title).current;
 
   useEffect(() => {
     document.title = title;
@@ -90,5 +90,5 @@ export const useDocumentTitle = (
         document.title = oldTitle;
       }
     };
-  }, []);
+  }, [keepOnUnmount, oldTitle]);
 };

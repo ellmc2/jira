@@ -6,7 +6,6 @@ import styled from "@emotion/styled";
 import logo from "../assets/logo.svg";
 import left from "../assets/left.svg";
 import right from "../assets/right.svg";
-import { Helmet } from "react-helmet";
 import { useDocumentTitle } from "utils";
 
 export const UnauthenticatedApp = () => {
