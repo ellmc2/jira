@@ -23,7 +23,9 @@ export const RegisterScreen = () => {
         <Input placeholder={"密码"} type="password" id={"password"} />
       </Form.Item>
       <Form.Item>
-        <LongButton type="primary">注册</LongButton>
+        <LongButton type="primary" htmlType={"submit"}>
+          注册
+        </LongButton>
       </Form.Item>
     </Form>
   );
