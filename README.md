@@ -414,3 +414,9 @@ export const clearObject = (obj: { key: string; value: unknown }) => {
   // ...
 };
 ```
+
+#### 0.15 安装 react-router
+
+```bash
+yarn add react-router@6 react-router-dom@6
+```
