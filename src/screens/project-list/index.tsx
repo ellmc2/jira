@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { SearchPanel } from "./search-panel";
 import { List } from "./list";
 import { useDebounce, useDocumentTitle } from "utils";
@@ -6,19 +5,19 @@ import styled from "@emotion/styled";
 import { Typography } from "antd";
 import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
-import { useUrlQueryParam } from "utils/url";
+import { useProjectSearchParams } from "./util";
 
 export const ProjectListScreen = () => {
-  // 用于存放input输入框输入的用户名以及用户id
-
-  const [params, setParams] = useUrlQueryParam(["name", "personId"]);
-
-  const debouncedParams = useDebounce(params, 2000);
-
-  const { isLoading, error, data: list } = useProjects(debouncedParams);
-  const { data: users } = useUsers();
-
   useDocumentTitle("项目列表", false);
+
+  const [params, setParams] = useProjectSearchParams();
+
+  const {
+    isLoading,
+    error,
+    data: list,
+  } = useProjects(useDebounce(params, 2000));
+  const { data: users } = useUsers();
 
   return (
     <Container>
@@ -32,7 +31,7 @@ export const ProjectListScreen = () => {
   );
 };
 
-ProjectListScreen.whyDidYouRender = false;
+ProjectListScreen.whyDidYouRender = true;
 
 const Container = styled.div`
   padding: 3.2rem;

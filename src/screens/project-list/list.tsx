@@ -4,11 +4,10 @@ import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { User } from "./search-panel";
 
-// TODO: 把所有的id 都改为 number 类型
 export interface Project {
-  id: string;
+  id: number;
   name: string;
-  personId: string;
+  personId: number;
   pin: boolean;
   organization: string;
   created: number;
