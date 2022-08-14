@@ -92,3 +92,7 @@ export const useDocumentTitle = (
     };
   }, [keepOnUnmount, oldTitle]);
 };
+
+export const resetRoute = () => {
+  window.location.href = window.location.origin;
+};
