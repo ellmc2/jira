@@ -4,7 +4,7 @@ import { cleanObject } from "utils";
 import { useHttp } from "./http";
 import { useAsync } from "./use-async";
 
-export const useUsers = (params: Partial<User>) => {
+export const useUsers = (params?: Partial<User>) => {
   const { run, ...result } = useAsync<User[]>();
 
   const client = useHttp();

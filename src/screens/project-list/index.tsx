@@ -6,18 +6,18 @@ import styled from "@emotion/styled";
 import { Typography } from "antd";
 import { useProjects } from "utils/project";
 import { useUsers } from "utils/user";
+import { useUrlQueryParam } from "utils/url";
 
 export const ProjectListScreen = () => {
   // 用于存放input输入框输入的用户名以及用户id
-  const [params, setParams] = useState({
-    name: "",
-    personId: "",
-  });
+
+  const [params, setParams] = useUrlQueryParam(["name", "personId"]);
 
   const debouncedParams = useDebounce(params, 2000);
 
   const { isLoading, error, data: list } = useProjects(debouncedParams);
-  const { data: users } = useUsers(debouncedParams);
+  const { data: users } = useUsers();
+
   useDocumentTitle("项目列表", false);
 
   return (
@@ -31,6 +31,8 @@ export const ProjectListScreen = () => {
     </Container>
   );
 };
+
+ProjectListScreen.whyDidYouRender = false;
 
 const Container = styled.div`
   padding: 3.2rem;

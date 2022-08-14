@@ -61,6 +61,7 @@
     "@commitlint/cli": "^16.2.4",
     "@commitlint/config-conventional": "^16.2.4",
     "@types/react-helmet": "^6.1.5",
+    "@welldone-software/why-did-you-render": "^7.0.1",
     "eslint-config-prettier": "^8.5.0",
     "husky": "^8.0.1",
     "json-server": "^0.17.0",

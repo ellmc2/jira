@@ -40,14 +40,15 @@ export const SearchPanel = ({ users, params, setParams }: SearchPanelProps) => {
       </Form.Item>
       <Form.Item>
         <Select
-          value={params.personId}
+          defaultValue={""}
+          value={params.personId || ""}
           onChange={(personId) => {
             setParams({ ...params, personId });
           }}
         >
           <Select.Option value={""}>负责人</Select.Option>
           {users.map((user) => (
-            <Select.Option value={user.id} key={user.id}>
+            <Select.Option value={String(user.id)} key={user.id}>
               {user.name}
             </Select.Option>
           ))}

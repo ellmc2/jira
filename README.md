@@ -415,8 +415,19 @@ export const clearObject = (obj: { key: string; value: unknown }) => {
 };
 ```
 
-#### 0.15 安装 react-router
+### 0.15 安装 react-router
 
 ```bash
 yarn add react-router@6 react-router-dom@6
 ```
+
+### 0.16 why-did-you-render
+
+```bash
+yarn add --dev @welldone-software/why-did-you-render
+```
+
+- 基本类型、组件状态可以放到 `useEffect` 或者 `useMemo` 中的依赖里；
+- 非组件状态的对象绝对不可以放到 `useEffect` 或者 `useMemo` 中的依赖里。
+
+> [] 、{}、Map 等都部署了[Symbol.iterator]属性，所以都可以用 for...of 进行遍历。
