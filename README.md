@@ -431,3 +431,5 @@ yarn add --dev @welldone-software/why-did-you-render
 - 非组件状态的对象绝对不可以放到 `useEffect` 或者 `useMemo` 中的依赖里。
 
 > [] 、{}、Map 等都部署了[Symbol.iterator]属性，所以都可以用 for...of 进行遍历。
+
+> useState 直接传入函数的含义是：惰性初始化。所以，要用 useState 保存函数，不能直接传入函数。此外还可以使用 `useRef` 保存函数，更新 `useRef.current` 不会触发组件的更新。
