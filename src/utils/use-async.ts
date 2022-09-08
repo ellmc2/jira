@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useMountedRef } from "utils";
 
 interface State<D> {
   error: Error | null;
@@ -33,6 +34,8 @@ export const useAsync = <D>(
     setState({ error, stat: "error", data: null });
   };
 
+  const mountedRef = useMountedRef();
+
   /**
    * @description: run 方法用于触发异步请求
    * @param {Promise} promise
@@ -54,7 +57,10 @@ export const useAsync = <D>(
     return (
       promise
         .then((data) => {
-          setData(data);
+          if (mountedRef.current) {
+            setData(data);
+          }
+
           return data;
         })
         // catch会消化异常，如果不主动抛出，外层函数是接收不到异常的。
