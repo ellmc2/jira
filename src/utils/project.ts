@@ -13,6 +13,7 @@ export const useProjects = (params?: Partial<Project>) => {
       client("projects", {
         data: cleanObject(params || {}),
       }),
+    // 非状态的非基本类型不可以直接放到useCallback的依赖中
     [client, params]
   );
 
